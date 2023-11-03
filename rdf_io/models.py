@@ -31,7 +31,7 @@ from rdflib import Graph,namespace, XSD
 from rdflib.term import URIRef, Literal
 from six import string_types
 from rdflib.namespace import NamespaceManager,RDF
-from rdf_io.protocols import *
+from .protocols import *
 from django.db.models import Q
 
 def testxx():
