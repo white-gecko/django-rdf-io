@@ -1,0 +1,40 @@
+version: '3'
+
+tasks:
+
+  default:
+    desc: List the available commands
+    cmds:
+      - task -l
+
+  django:manage:
+    desc: Run the django migrate steps
+    cmds:
+      - task: django:makemigrations:rdf_io
+      - task: django:makemigrations:biodiversity_map
+      - task: django:migrate
+
+  django:makemigrations:rdf_io:
+    desc: Run the django migrate steps
+    cmds:
+      - poetry run python manage.py makemigrations rdf_io
+
+  django:makemigrations:biodiversity_map:
+    desc: Run the django migrate steps
+    cmds:
+      - poetry run python manage.py makemigrations biodiversity_map
+
+  django:migrate:
+    desc: Run the django migrate steps
+    cmds:
+      - poetry run python manage.py migrate
+
+  database:create:django_content_type:
+    desc: Create the django_content_type table in the django database
+    cmds:
+      - sqlite3 db.sqlite3 'CREATE TABLE IF NOT EXISTS "django_content_type" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "app_label" varchar(100) NOT NULL, "model" varchar(100) NOT NULL );'
+
+  database:drop:django_content_type:
+    desc: Create the django_content_type table in the django database
+    cmds:
+      - sqlite3 db.sqlite3 'DROP TABLE "django_content_type";'
